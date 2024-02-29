@@ -32,7 +32,7 @@ public class HotelServiceImpl implements HotelService{
 		theHotel.setLocation(hotel.getLocation());
 		theHotel.setAbout(hotel.getAbout());
 		
-		return theHotel;
+		return hotelRepository.save(theHotel);
 	}
 
 	@Override
