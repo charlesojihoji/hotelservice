@@ -6,20 +6,20 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="micro_hotel")
+@Table(name = "micro_hotel")
 public class Hotel {
 
 	@Id
-	@Column(name="ID")
+	@Column(name = "ID")
 	private String id;
-	
-	@Column(name="Name")
+
+	@Column(name = "Name")
 	private String name;
-	
-	@Column(name="Location")
+
+	@Column(name = "Location")
 	private String location;
-	
-	@Column(name="About")
+
+	@Column(name = "About")
 	private String about;
 
 	public Hotel() {
@@ -65,5 +65,10 @@ public class Hotel {
 	public void setAbout(String about) {
 		this.about = about;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Hotel [id=" + id + ", name=" + name + ", location=" + location + ", about=" + about + "]";
+	}
+
 }
