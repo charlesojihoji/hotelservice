@@ -2,9 +2,11 @@ package com.softel.hotel.controllers;
 
 import java.util.List;
 
+import com.softel.hotel.response.HotelServiceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +30,7 @@ public class HotelController {
 	
 	@Autowired
 	private HotelService hotelService;
-	
+
 	@PostMapping
 	public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel){
 		
@@ -44,7 +46,9 @@ public class HotelController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(hotelService.getAll());
 	}
-	
+
+	/*
+	//Before introducing HotelServiceResponse
 	@GetMapping("/{id}")
 	public ResponseEntity<Hotel> getHotel(@PathVariable String id) {
 		
@@ -52,7 +56,18 @@ public class HotelController {
 		
 		return ResponseEntity.status(HttpStatus.OK).body(hotelService.get(id));
 	}
-	
+	*/
+
+	@GetMapping("/{id}")
+	public ResponseEntity<HotelServiceResponse> getHotel(@PathVariable String id) {
+
+		logger.info("Get a Single Hotel Handler: HotelController " + id);
+
+		HotelServiceResponse hotelServiceResponse = hotelService.get(id);
+
+		return ResponseEntity.status(HttpStatus.OK).body(hotelServiceResponse);
+	}
+
 	@PutMapping("/update/{id}")
 	public ResponseEntity<Hotel> updateHotel(@RequestBody Hotel hotel, @PathVariable String id){
 		

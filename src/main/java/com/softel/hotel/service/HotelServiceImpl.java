@@ -1,15 +1,22 @@
 package com.softel.hotel.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
+import com.softel.hotel.response.HotelServiceResponse;
+import com.softel.hotel.response.UserServiceResponse;
+
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.softel.hotel.entity.Hotel;
 import com.softel.hotel.repository.HotelRepository;
+import com.softel.hotel.feignclient.UserServiceClient;
 
 @Service
 public class HotelServiceImpl implements HotelService {
@@ -18,6 +25,12 @@ public class HotelServiceImpl implements HotelService {
 
 	@Autowired
 	private HotelRepository hotelRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Autowired
+	private UserServiceClient userServiceClient;
 
 	@Override
 	public Hotel create(Hotel hotel) {
@@ -84,13 +97,29 @@ public class HotelServiceImpl implements HotelService {
 
 		return listOfHotels;
 	}
-
+/*
 	@Override
-	public Hotel get(String id) {
+	public HotelServiceResponse get(String id) {
 
 		logger.info("Get a Single Hotel:HotelServiceImpl " + id);
 
 		return hotelRepository.findById(id).orElseThrow(() -> new RuntimeException("Could not find the hotel"));
+	}
+*/
+	@Override
+	public HotelServiceResponse get(String id) {
+
+		logger.info("Get a Single Hotel:HotelServiceImpl " + id);
+
+		Optional<Hotel> hotel = hotelRepository.findById(id);
+		HotelServiceResponse hotelServiceResponse = modelMapper.map(hotel, HotelServiceResponse.class);
+
+		// Using FeignClient
+		ResponseEntity<UserServiceResponse> userServiceResponse = userServiceClient.getUser(id);
+		hotelServiceResponse.setUserServiceResponse(userServiceResponse.getBody());
+
+		return hotelServiceResponse;
+
 	}
 
 	@Override
