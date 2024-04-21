@@ -3,6 +3,7 @@ package com.softel.hotel.service;
 import java.util.List;
 
 import com.softel.hotel.entity.Hotel;
+import com.softel.hotel.response.HotelServiceResponse;
 
 public interface HotelService {
 
@@ -12,7 +13,7 @@ public interface HotelService {
 	
 	public List<Hotel> getAll();
 	
-	public Hotel get(String id);
+	public HotelServiceResponse get(String id);
 	
 	public String delete(String id);
 }
