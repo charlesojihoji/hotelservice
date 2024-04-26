@@ -7,16 +7,6 @@ public class UserServiceResponse {
     private String emailId;
     private String about;
 
-    public UserServiceResponse() {
-    }
-
-    public UserServiceResponse(String id, String name, String emailId, String about) {
-        this.id = id;
-        this.name = name;
-        this.emailId = emailId;
-        this.about = about;
-    }
-
     public String getId() {
         return id;
     }
