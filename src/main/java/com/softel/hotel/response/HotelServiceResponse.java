@@ -8,9 +8,6 @@ public class HotelServiceResponse {
     private String about;
     private UserServiceResponse UserServiceResponse;
 
-    public HotelServiceResponse() {
-    }
-
     public String getId() {
         return id;
     }
