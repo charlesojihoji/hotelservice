@@ -11,7 +11,7 @@ public interface HotelService {
 	
 	public Hotel update(Hotel hotel, String id);
 	
-	public List<Hotel> getAll();
+	public List<HotelServiceResponse> getAll();
 	
 	public HotelServiceResponse get(String id);
 	
