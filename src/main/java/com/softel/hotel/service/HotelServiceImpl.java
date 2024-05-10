@@ -1,5 +1,6 @@
 package com.softel.hotel.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -79,21 +80,28 @@ public class HotelServiceImpl implements HotelService {
 	}
 
 	@Override
-	public List<Hotel> getAll() {
+	public List<HotelServiceResponse> getAll() {
 
-		List<Hotel> listOfHotels = null;
+		List<HotelServiceResponse> listOfHotels = new ArrayList<>();
 
-		try {
-			logger.info("Get a List of Hotels:HotelServiceImpl");
+		HotelServiceResponse hotelServiceResponse = new HotelServiceResponse();
 
-			listOfHotels = hotelRepository.findAll();
-		} catch (Exception e) {
+		logger.info("Get a List of Users:hotelServiceResponse");
 
-			logger.error("An Error Occurred While Getting a List of Hotels:HotelUserServiceImpl. Exception message is: "
-					+ e.getMessage());
+		List<Hotel> hotelList = hotelRepository.findAll();
 
-			e.printStackTrace();
+		for (Hotel hotel : hotelList) {
+			hotelServiceResponse.setAbout(hotel.getAbout());
+			hotelServiceResponse.setLocation(hotel.getLocation());
+			hotelServiceResponse.setId(hotel.getId());
+			hotelServiceResponse.setName(hotel.getName());
 		}
+		
+		ResponseEntity<List<UserServiceResponse>> userServiceResponse = userServiceClient.getAllUsers();
+		
+		hotelServiceResponse.setListOfUserServiceResponse(userServiceResponse.getBody());
+			       
+		listOfHotels.add(hotelServiceResponse);
 
 		return listOfHotels;
 	}

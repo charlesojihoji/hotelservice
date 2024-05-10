@@ -6,6 +6,8 @@ import com.softel.hotel.response.HotelServiceResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -23,40 +25,36 @@ import com.softel.hotel.entity.Hotel;
 import com.softel.hotel.service.HotelService;
 
 @RestController
+@RefreshScope
 @RequestMapping("/hotel")
 public class HotelController {
 
 	private Logger logger = LoggerFactory.getLogger(HotelController.class);
-	
+
 	@Autowired
 	private HotelService hotelService;
+	
+	@Value("${message:Hello default}")
+	private String message;
 
 	@PostMapping
-	public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel){
-		
+	public ResponseEntity<Hotel> createHotel(@RequestBody Hotel hotel) {
+
 		logger.info("Create a Single Hotel Handler: HotelController " + hotel);
-		
+
 		return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.create(hotel));
 	}
-	
-	@GetMapping
-	public ResponseEntity<List<Hotel>> getAllHotels(){
-		
-		logger.info("Get a List of Hotels Handler: HotelController ");
-		
-		return ResponseEntity.status(HttpStatus.OK).body(hotelService.getAll());
-	}
 
-	/*
-	//Before introducing HotelServiceResponse
-	@GetMapping("/{id}")
-	public ResponseEntity<Hotel> getHotel(@PathVariable String id) {
-		
-		logger.info("Get a Single Hotel Handler: HotelController " + id);
-		
-		return ResponseEntity.status(HttpStatus.OK).body(hotelService.get(id));
+	@GetMapping
+	public ResponseEntity<List<HotelServiceResponse>> getAllHotels() {
+
+		logger.info("Get a List of Hotels Handler: HotelController ");
+
+		List<HotelServiceResponse> hotelServiceResponse = hotelService.getAll();
+
+		return ResponseEntity.status(HttpStatus.OK).body(hotelServiceResponse);
+
 	}
-	*/
 
 	@GetMapping("/{id}")
 	public ResponseEntity<HotelServiceResponse> getHotel(@PathVariable String id) {
@@ -69,18 +67,23 @@ public class HotelController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<Hotel> updateHotel(@RequestBody Hotel hotel, @PathVariable String id){
-		
+	public ResponseEntity<Hotel> updateHotel(@RequestBody Hotel hotel, @PathVariable String id) {
+
 		logger.info("Update a Single Hotel Handler: HotelController " + hotel + ", " + id);
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(hotelService.update(hotel, id));
 	}
-	
+
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteHotel(@PathVariable String id){
-		
+	public ResponseEntity<String> deleteHotel(@PathVariable String id) {
+
 		logger.info("Delete a Single Hotel Handler: HotelController " + id);
-		
+
 		return ResponseEntity.status(HttpStatus.OK).body(hotelService.delete(id));
 	}
+	
+	@GetMapping("/message")
+    String getMessage() {
+        return this.message;
+    }
 }
