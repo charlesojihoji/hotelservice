@@ -53,7 +53,6 @@ public class HotelController {
 		List<HotelServiceResponse> hotelServiceResponse = hotelService.getAll();
 
 		return ResponseEntity.status(HttpStatus.OK).body(hotelServiceResponse);
-
 	}
 
 	@GetMapping("/{id}")

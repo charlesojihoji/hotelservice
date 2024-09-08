@@ -8,8 +8,8 @@ public class HotelServiceResponse {
     private String name;
     private String location;
     private String about;
-    private UserServiceResponse UserServiceResponse;
-    private List<UserServiceResponse> listOfUserServiceResponse;
+    //private UserServiceResponse UserServiceResponse;
+    //private List<UserServiceResponse> listOfUserServiceResponse;
     
 	public String getId() {
 		return id;
@@ -35,17 +35,15 @@ public class HotelServiceResponse {
 	public void setAbout(String about) {
 		this.about = about;
 	}
-	public UserServiceResponse getUserServiceResponse() {
-		return UserServiceResponse;
-	}
-	public void setUserServiceResponse(UserServiceResponse userServiceResponse) {
-		UserServiceResponse = userServiceResponse;
-	}
-	public List<UserServiceResponse> getListOfUserServiceResponse() {
-		return listOfUserServiceResponse;
-	}
-	public void setListOfUserServiceResponse(List<UserServiceResponse> listOfUserServiceResponse) {
-		this.listOfUserServiceResponse = listOfUserServiceResponse;
-	}
+	/*
+	 * public UserServiceResponse getUserServiceResponse() { return
+	 * UserServiceResponse; } public void setUserServiceResponse(UserServiceResponse
+	 * userServiceResponse) { UserServiceResponse = userServiceResponse; } public
+	 * List<UserServiceResponse> getListOfUserServiceResponse() { return
+	 * listOfUserServiceResponse; } public void
+	 * setListOfUserServiceResponse(List<UserServiceResponse>
+	 * listOfUserServiceResponse) { this.listOfUserServiceResponse =
+	 * listOfUserServiceResponse; }
+	 */
 
 }
