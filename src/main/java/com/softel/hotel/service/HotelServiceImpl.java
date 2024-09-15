@@ -84,24 +84,24 @@ public class HotelServiceImpl implements HotelService {
 
 		List<HotelServiceResponse> listOfHotels = new ArrayList<>();
 
-		HotelServiceResponse hotelServiceResponse = new HotelServiceResponse();
-
 		logger.info("Get a List of Users:hotelServiceResponse");
 
 		List<Hotel> hotelList = hotelRepository.findAll();
 
 		for (Hotel hotel : hotelList) {
+			HotelServiceResponse hotelServiceResponse = new HotelServiceResponse();
+			
 			hotelServiceResponse.setAbout(hotel.getAbout());
 			hotelServiceResponse.setLocation(hotel.getLocation());
 			hotelServiceResponse.setId(hotel.getId());
 			hotelServiceResponse.setName(hotel.getName());
+			
+			listOfHotels.add(hotelServiceResponse);
 		}
 		
-		ResponseEntity<List<UserServiceResponse>> userServiceResponse = userServiceClient.getAllUsers();
+		//ResponseEntity<List<UserServiceResponse>> userServiceResponse = userServiceClient.getAllUsers();
 		
-		hotelServiceResponse.setListOfUserServiceResponse(userServiceResponse.getBody());
-			       
-		listOfHotels.add(hotelServiceResponse);
+		//hotelServiceResponse.setListOfUserServiceResponse(userServiceResponse.getBody());
 
 		return listOfHotels;
 	}
@@ -123,8 +123,8 @@ public class HotelServiceImpl implements HotelService {
 		HotelServiceResponse hotelServiceResponse = modelMapper.map(hotel, HotelServiceResponse.class);
 
 		// Using FeignClient
-		ResponseEntity<UserServiceResponse> userServiceResponse = userServiceClient.getUser(id);
-		hotelServiceResponse.setUserServiceResponse(userServiceResponse.getBody());
+		//ResponseEntity<UserServiceResponse> userServiceResponse = userServiceClient.getUser(id);
+		//hotelServiceResponse.setUserServiceResponse(userServiceResponse.getBody());
 
 		return hotelServiceResponse;
 
