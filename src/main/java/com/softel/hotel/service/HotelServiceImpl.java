@@ -99,10 +99,52 @@ public class HotelServiceImpl implements HotelService {
 			listOfHotels.add(hotelServiceResponse);
 		}
 		
-		//ResponseEntity<List<UserServiceResponse>> userServiceResponse = userServiceClient.getAllUsers();
+		ResponseEntity<List<UserServiceResponse>> userServiceResponse = userServiceClient.getAllUsers();
 		
 		//hotelServiceResponse.setListOfUserServiceResponse(userServiceResponse.getBody());
 
+		return listOfHotels;
+	}
+	@Override
+	public List<HotelServiceResponse> getListOfHotelsBasedOnLocation(String place) {
+
+		List<HotelServiceResponse> listOfHotels = new ArrayList<>();
+
+		logger.info("Get a List of Hotels:hotelServiceResponse");
+
+		List<Hotel> hotelList = hotelRepository.findByLocation(place);
+
+		for (Hotel hotel : hotelList) {
+			HotelServiceResponse hotelServiceResponse = new HotelServiceResponse();
+
+			hotelServiceResponse.setAbout(hotel.getAbout());
+			hotelServiceResponse.setLocation(hotel.getLocation());
+			hotelServiceResponse.setId(hotel.getId());
+			hotelServiceResponse.setName(hotel.getName());
+
+			listOfHotels.add(hotelServiceResponse);
+		}
+		return listOfHotels;
+	}
+	@Override
+	public List<HotelServiceResponse> getListOfHotelsByName(String name) {
+
+		List<HotelServiceResponse> listOfHotels = new ArrayList<>();
+
+		logger.info("Get a List of Hotels:hotelServiceResponse");
+
+		List<Hotel> hotelList = hotelRepository.findByName(name);
+
+		for (Hotel hotel : hotelList) {
+			HotelServiceResponse hotelServiceResponse = new HotelServiceResponse();
+
+			hotelServiceResponse.setAbout(hotel.getAbout());
+			hotelServiceResponse.setLocation(hotel.getLocation());
+			hotelServiceResponse.setId(hotel.getId());
+			hotelServiceResponse.setName(hotel.getName());
+
+			listOfHotels.add(hotelServiceResponse);
+		}
 		return listOfHotels;
 	}
 /*

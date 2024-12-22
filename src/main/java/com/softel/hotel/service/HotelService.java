@@ -7,13 +7,16 @@ import com.softel.hotel.response.HotelServiceResponse;
 
 public interface HotelService {
 
-	public Hotel create(Hotel hotel);
+	 Hotel create(Hotel hotel);
 	
-	public Hotel update(Hotel hotel, String id);
+	 Hotel update(Hotel hotel, String id);
 	
-	public List<HotelServiceResponse> getAll();
+	 List<HotelServiceResponse> getAll();
 	
-	public HotelServiceResponse get(String id);
+	 HotelServiceResponse get(String id);
 	
-	public String delete(String id);
+	 String delete(String id);
+	 List<HotelServiceResponse> getListOfHotelsBasedOnLocation(String place);
+	 List<HotelServiceResponse> getListOfHotelsByName(String name);
+
 }

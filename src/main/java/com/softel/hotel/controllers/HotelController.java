@@ -54,6 +54,24 @@ public class HotelController {
 
 		return ResponseEntity.status(HttpStatus.OK).body(hotelServiceResponse);
 	}
+	@GetMapping("/location/{place}")
+	public ResponseEntity<List<HotelServiceResponse>> getListOfHotelsBasedOnLocation(@PathVariable String place) {
+
+		logger.info("Get a List of Hotels Handler: HotelController ");
+
+		List<HotelServiceResponse> hotelServiceResponse = hotelService.getListOfHotelsBasedOnLocation(place);
+
+		return ResponseEntity.status(HttpStatus.OK).body(hotelServiceResponse);
+	}
+	@GetMapping("/name/{name}")
+	public ResponseEntity<List<HotelServiceResponse>> getListOfHotelsByName(@PathVariable String name) {
+
+		logger.info("Get a List of Hotels Handler: HotelController ");
+
+		List<HotelServiceResponse> hotelServiceResponse = hotelService.getListOfHotelsByName(name);
+
+		return ResponseEntity.status(HttpStatus.OK).body(hotelServiceResponse);
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<HotelServiceResponse> getHotel(@PathVariable String id) {
